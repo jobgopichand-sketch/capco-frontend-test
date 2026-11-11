@@ -21,6 +21,8 @@ export interface ApplicantJourneyPresentationFixture {
 
 export interface ApplicantJourneyPresentationProps extends ApplicantJourneyPresentationFixture {
   onPrimaryAction: () => void
+  isPrimaryActionDisabled?: boolean
+  primaryActionLabel?: string
 }
 
 export const applicantJourneyFixtures = {
@@ -73,6 +75,8 @@ export function ApplicantJourneyPresentation({
   entryState,
   progress,
   onPrimaryAction,
+  isPrimaryActionDisabled = false,
+  primaryActionLabel,
 }: ApplicantJourneyPresentationProps) {
   const stateCopy = copy[entryState]
 
@@ -134,12 +138,13 @@ export function ApplicantJourneyPresentation({
 
             <Button
               aria-describedby="journey-description journey-progress"
+              isDisabled={isPrimaryActionDisabled}
               fullWidth
               onClick={onPrimaryAction}
               size="large"
               className={styles.action}
             >
-              {stateCopy.action}
+              {primaryActionLabel ?? stateCopy.action}
             </Button>
           </Stack>
         </CardContent>
